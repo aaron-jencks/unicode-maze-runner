@@ -1,4 +1,4 @@
-# unicode-connect-four
+# unicode-maze-runner
 A C Implementation of a simple maze game using unicode characters for the display
 
 ## Contents
