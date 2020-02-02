@@ -55,7 +55,7 @@ game game_reset(game g)
 		// Update the terminal size
 		size_t* term_size = get_screen_size();
 
-		g->board_height = term_size[1];
+		g->board_height = term_size[1] - 6;
 		if((g->board_height - 1) % 2) g->board_height--;
 
 		g->board_width = term_size[0];

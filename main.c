@@ -41,6 +41,8 @@ int main() {
 		printf("%s", b);
 		free(b);
 
+		display_stats(g);
+
 		char c = getkey();
 		switch(c)
 		{
@@ -66,6 +68,7 @@ int main() {
 		{
 			g->round++;
 			score_round(g);
+			clear_screen();
 			display_stats(g);
 			pause_term();
 			game_reset(g);	// Regenerates the maze and increases the round
