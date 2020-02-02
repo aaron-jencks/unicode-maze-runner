@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <time.h>
 #include <err.h>
 
 #include "game.h"
@@ -64,6 +65,9 @@ game game_reset(game g)
 
 		// Resize the board_size
 		g->board = generate_maze(g->board_width, g->board_height);
+
+		g->turn = 0;	// Reset the move count;
+		time(&g->start_time);
 	}
 
 	g->board[1][1] = PLAYER;	// Starts the game off
@@ -295,6 +299,8 @@ game take_turn(game g, move_direction direction)
 
 				g->p->previous_move = direction;
 			}
+
+			g->p->good_move_count++; // Player made a good move
 			break;
 		case DOWN:
 			if(position[0] < g->board_height - 1 && !space_is_wall(g->board[position[0] + 1][position[1]]))
@@ -318,6 +324,8 @@ game take_turn(game g, move_direction direction)
 
 				g->p->previous_move = direction;
 			}
+
+			g->p->good_move_count++; // Player made a good move
 			break;
 		default:
 			err(5, "Invalid move direction");
@@ -326,6 +334,21 @@ game take_turn(game g, move_direction direction)
 	if(position[0] == 1 && position[1] == 1) g->board[1][1] = START;
 
 	g->turn++;
+
+	return g;
+}
+
+game score_round(game g)
+{
+	if(g)
+	{
+		size_t diagonal = g->board_width + g->board_height;
+		diagonal *= 1.10;
+
+		time_t time_diff = time(0) - g->start_time;
+
+		g->p->score += abs((((double)diagonal) / (((double)g->p->good_move_count) / (double)diagonal)) / (double)time_diff);
+	}
 
 	return g;
 }

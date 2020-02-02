@@ -14,6 +14,7 @@
 #include "display.h"
 #include "utf8.h"
 #include "stringbuilder.h"
+#include "io.h"
 
 
 void clear_screen()
@@ -92,8 +93,8 @@ char* boxed_text(const char* content)
 
 void pause_term()
 {
-	char* l = readline("Press any key to continue");
-	free(l);
+	printf("Press any key to continue\n");
+	getkey();
 }
 
 char* board_string(board_space** board, unsigned rstart, unsigned cstart, unsigned width, unsigned height)

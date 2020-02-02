@@ -16,7 +16,7 @@
 
 void display_stats(game g)
 {
-	printf("Round %lu:\nPlayer: %s\nScore: %lu\nMoves: %lu\n", g->round, g->p->name, g->p->score, g->turn);
+	printf("Round %lu:\nPlayer: %s\nScore: %lu\nMoves: %lu\nElapsed Time: %ld sec\n", g->round, g->p->name, g->p->score, g->turn, time(0) - g->start_time);
 }
 
 
@@ -65,6 +65,7 @@ int main() {
 		if(game_is_win(g))
 		{
 			g->round++;
+			score_round(g);
 			display_stats(g);
 			pause_term();
 			game_reset(g);	// Regenerates the maze and increases the round

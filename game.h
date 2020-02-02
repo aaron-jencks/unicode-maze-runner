@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stddef.h>
+#include <time.h>
 
 #include "player.h"
 #include "gamedefs.h"
@@ -12,6 +13,7 @@ typedef struct _game_t {
 	size_t board_height;
 	size_t turn;
 	size_t round;
+	time_t start_time;
 } game_t;
 
 typedef game_t* game;
@@ -30,3 +32,5 @@ unsigned* find_player(game g);
 unsigned char game_is_win(game g);
 
 game take_turn(game g, move_direction direction);
+
+game score_round(game g);

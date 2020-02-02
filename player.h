@@ -8,6 +8,7 @@
 typedef struct _player_t {
 	char* name;
 	size_t score;
+	size_t good_move_count;
 	move_direction previous_move;
 } player_t;
 
